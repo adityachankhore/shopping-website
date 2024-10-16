@@ -1,14 +1,18 @@
 package com.shoppingbackend.shopping.website.controller;
 
 import com.shoppingbackend.shopping.website.model.ApplicationUser;
+import com.shoppingbackend.shopping.website.service.AllUserDetailService;
 import com.shoppingbackend.shopping.website.service.UserService;
 import org.apache.catalina.User;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
 
     private UserService userService = new UserService();
+    private AllUserDetailService allUserDetailService = new AllUserDetailService();
 
     @PostMapping("/api/register/user")
     public String registerUser(@RequestBody ApplicationUser applicationUser){
@@ -29,5 +33,18 @@ public class UserController {
                                              @RequestParam String email){
         userService.updateUserByEmail(applicationUser,email);
         return userService.getUserByEmail(email);
+    }
+
+    @DeleteMapping("/api/user/delete")
+    public String removeUser(@RequestParam String email){
+        userService.deleteUser(email);
+        return "User got DELETED.";
+    }
+
+    @GetMapping("/api/user/all")
+    public List<String> getAllUserName(){
+       //we need to call alluserservice
+        List <String> names = AllUserDetailService.getAllUserName();
+        return names;
     }
 }
