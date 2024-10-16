@@ -2,6 +2,7 @@ package com.shoppingbackend.shopping.website.service;
 
 import com.shoppingbackend.shopping.website.model.ApplicationUser;
 import com.shoppingbackend.shopping.website.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +13,8 @@ public class UserService {
     // Get User who has ordered maximum products
 
     //when we create object of one class in another class is known as dependency injection.
-    private UserRepository userRepository = new UserRepository();
+    @Autowired
+    private UserRepository userRepository;
     public void createUser(ApplicationUser applicationUser){
         //this method wants to save the user into the database
         //so this method will call repository layer to save the user.

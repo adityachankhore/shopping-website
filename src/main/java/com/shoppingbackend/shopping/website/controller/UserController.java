@@ -4,6 +4,7 @@ import com.shoppingbackend.shopping.website.model.ApplicationUser;
 import com.shoppingbackend.shopping.website.service.AllUserDetailService;
 import com.shoppingbackend.shopping.website.service.UserService;
 import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,8 +12,10 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private UserService userService = new UserService();
-    private AllUserDetailService allUserDetailService = new AllUserDetailService();
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private AllUserDetailService allUserDetailService;
 
     @PostMapping("/api/register/user")
     public String registerUser(@RequestBody ApplicationUser applicationUser){
@@ -44,7 +47,7 @@ public class UserController {
     @GetMapping("/api/user/all")
     public List<String> getAllUserName(){
        //we need to call alluserservice
-        List <String> names = AllUserDetailService.getAllUserName();
+        List <String> names = allUserDetailService.getAllUserName();
         return names;
     }
 }
